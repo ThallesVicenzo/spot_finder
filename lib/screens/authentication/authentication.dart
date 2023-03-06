@@ -34,17 +34,19 @@ class _AuthenticationScreen extends State<AuthenticationScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Map\nHelper',
+                  'Hello!',
                   style: Theme.of(context).primaryTextTheme.bodyLarge,
                 ),
                 Column(
                   children: [
                     AuthenticationButton(
+                      title: 'Sign in with Facebook',
                       icon: kFacebookSignIn,
                       style: Theme.of(context).primaryTextTheme.bodyMedium,
                       function: () {},
                     ),
                     AuthenticationButton(
+                      title: 'Sign up with Facebook',
                       icon: kFacebookSignUp,
                       style: Theme.of(context)
                           .primaryTextTheme

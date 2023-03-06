@@ -6,6 +6,7 @@ class AuthenticationButton extends StatelessWidget {
     required this.icon,
     required this.style,
     required this.function,
+    required this.title,
     this.backGroundColor = Colors.transparent,
   });
 
@@ -13,6 +14,7 @@ class AuthenticationButton extends StatelessWidget {
   final TextStyle? style;
   final Color backGroundColor;
   final Function() function;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class AuthenticationButton extends StatelessWidget {
                 scale: 3.2,
               ),
               Text(
-                'Sign in with Facebook',
+                title,
                 style: style,
               ),
             ],
