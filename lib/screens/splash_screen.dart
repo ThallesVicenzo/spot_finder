@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../routes/named_routes.dart';
-import '../constants.dart';
+import '../shared/constants.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
