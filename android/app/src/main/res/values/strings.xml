@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">949618716170973</string>
+    <string name="fb_login_protocol_scheme">fb949618716170973</string>
+    <string name="app_name">spot_finder</string>
+    <string name="facebook_client_token">74a2e9a1497d205b7b4ca3630a4cf621</string>
+</resources>
+

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "874572883124",
+    "project_id": "map-helper-1f902",
+    "storage_bucket": "map-helper-1f902.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874572883124:android:fc6b8fa2d1698a5c21a3e1",
+        "android_client_info": {
+          "package_name": "com.example.spot_finder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874572883124-b8nrq66lg9purbqojabu8v9tmmsfa91g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spot_finder",
+            "certificate_hash": "fef72596337966130991a58b48ac4c2d2bade6aa"
+          }
+        },
+        {
+          "client_id": "874572883124-3qbtqb5p3cd2kok251e817nksgqahmnn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgOtNz24kwd6dvqLSbfAOzCmx0G9gXl3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874572883124-3qbtqb5p3cd2kok251e817nksgqahmnn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
