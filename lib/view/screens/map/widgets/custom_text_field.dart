@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spot_finder/view-model/providers/custom_text_field_provider.dart';
+import 'package:spot_finder/view-model/providers/save_spot_provider.dart';
+import 'package:spot_finder/view-model/shared/constants.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({super.key, required this.title, this.sufixIcon});
@@ -9,7 +10,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextFieldProvider textFieldProvider = TextFieldProvider();
+    SaveSpotProvider textFieldProvider = SaveSpotProvider();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -17,16 +18,22 @@ class CustomTextField extends StatelessWidget {
         controller: textFieldProvider.textController,
         decoration: InputDecoration(
           labelText: title,
+          labelStyle: Theme.of(context).primaryTextTheme.bodySmall,
           suffixIcon: Icon(
             sufixIcon,
             color: Theme.of(context).primaryColor,
             size: 30,
           ),
-          border: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          border: kInputBorder.copyWith(
             borderSide: BorderSide(
               color: Theme.of(context).primaryColor,
-              width: 3,
+              width: 2,
+            ),
+          ),
+          focusedBorder: kInputBorder.copyWith(
+            borderSide: BorderSide(
+              color: Theme.of(context).primaryColor,
+              width: 2,
             ),
           ),
         ),

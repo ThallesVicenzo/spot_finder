@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TextFieldProvider with ChangeNotifier {
+class SaveSpotProvider with ChangeNotifier {
   TextEditingController textController = TextEditingController();
 
   void onChanged(String value) {
