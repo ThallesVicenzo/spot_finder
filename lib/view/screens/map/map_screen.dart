@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:spot_finder/model/services/location.dart';
 import 'package:spot_finder/view/screens/map/widgets/pop_up.dart';
 
-import '../../../view-model/markers/markers.dart';
+import '../../../view-model/providers/markers_provider.dart';
 import '../../../view-model/shared/constants.dart';
 
 class MapScreen extends StatefulWidget {
@@ -29,6 +29,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     //TODO: implement loading screen
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: FutureBuilder(
           initialData: getLocation(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -44,11 +45,14 @@ class _MapScreenState extends State<MapScreen> {
                           zoom: 18.0,
                           onTap: (tapPosition, point) {
                             showDialog(
+                                barrierDismissible: false,
                                 context: context,
                                 builder: (BuildContext context) {
                                   return const Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 70),
+                                      horizontal: 15,
+                                      vertical: 70,
+                                    ),
                                     child: PopUp(),
                                   );
                                 });
