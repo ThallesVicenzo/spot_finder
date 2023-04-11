@@ -35,7 +35,7 @@ class _AuthenticationScreen extends State<AuthenticationScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Hello!',
+                  'Olá',
                   style: Theme.of(context).primaryTextTheme.bodyLarge,
                 ),
                 Padding(
@@ -43,11 +43,11 @@ class _AuthenticationScreen extends State<AuthenticationScreen> {
                   child: Column(
                     children: [
                       AuthenticationButton(
-                        title: 'Continue with Facebook',
+                        title: 'Continuar com o Facebook',
                         icon: kFacebookSignIn,
                         style: Theme.of(context)
                             .primaryTextTheme
-                            .bodyMedium!
+                            .bodySmall!
                             .copyWith(color: Colors.white),
                         backGroundColor: Theme.of(context).primaryColor,
                         function: () {
@@ -55,11 +55,11 @@ class _AuthenticationScreen extends State<AuthenticationScreen> {
                         },
                       ),
                       AuthenticationButton(
-                        title: 'Continue with Google',
+                        title: 'Continuar com o google',
                         icon: kGoogleSignIn,
                         style: Theme.of(context)
                             .primaryTextTheme
-                            .bodyMedium!
+                            .bodySmall!
                             .copyWith(color: Colors.black),
                         function: () {},
                       )
