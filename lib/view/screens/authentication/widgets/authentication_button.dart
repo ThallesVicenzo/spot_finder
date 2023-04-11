@@ -30,7 +30,7 @@ class AuthenticationButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 8),
           child: Stack(
             children: [
               Align(
@@ -42,9 +42,14 @@ class AuthenticationButton extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  title,
-                  style: style,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                  ),
+                  child: Text(
+                    title,
+                    style: style,
+                  ),
                 ),
               ),
             ],
