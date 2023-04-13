@@ -46,7 +46,7 @@ dependencies:
   provider:
   camera:
   cross_file_image:
- 
+  flutter_colorpicker:
 
 dev_dependencies:
   flutter_test:
