@@ -47,7 +47,7 @@ class _MapScreenState extends State<MapScreen> {
                             showDialog(
                                 barrierDismissible: false,
                                 context: context,
-                                builder: (BuildContext context) {
+                                builder: (_) {
                                   return const Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 15,
