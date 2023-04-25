@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:spot_finder/model/models/categories.dart';
+import 'package:spot_finder/view-model/repository/firebase_repository.dart';
 
 class SaveSpotProvider with ChangeNotifier {
   TextEditingController textController = TextEditingController();
   Color currentColor = const Color(0xFFF40B0B);
+  List<Categories> categoriesModel = [];
+  bool isPressed = false;
 
   Future<String?> errorText() async {
     final text = textController.value.text;
@@ -24,6 +28,17 @@ class SaveSpotProvider with ChangeNotifier {
 
   void selectColor(Color selectedColor) {
     currentColor = selectedColor;
+    notifyListeners();
+  }
+
+  Future<void> getCategories() async {
+    final response = FirebaseRepository.getCategoriesList();
+    categoriesModel = await response;
+    notifyListeners();
+  }
+
+  void changeCategorieButtonColor() {
+    isPressed = !isPressed;
     notifyListeners();
   }
 }
