@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import '../../view/screens/camera/camera_screen.dart';
+import '../../view/camera/camera_screen.dart';
 
 class CameraProvider with ChangeNotifier {
   Future<void> goToPictureScreen(context) async {
@@ -12,7 +12,7 @@ class CameraProvider with ChangeNotifier {
   }
 
   late CameraController cameraController;
-  bool isRearCameraSelected = true;
+  bool isFlashButtonClicked = false;
   bool isPictureTaken = false;
   XFile? picture;
 
@@ -24,12 +24,12 @@ class CameraProvider with ChangeNotifier {
       return null;
     }
     try {
-      await cameraController.setFlashMode(FlashMode.off);
+      await setFlash();
       picture = await cameraController.takePicture();
       !isPictureTaken;
       Navigator.pop(context);
     } on CameraException catch (e) {
-      return debugPrint('aaaaaaaaaa error $e');
+      return debugPrint('$e');
     }
     notifyListeners();
   }
@@ -50,9 +50,16 @@ class CameraProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void switchCamera(List<CameraDescription>? cameras, bool mounted) {
-    isRearCameraSelected = isRearCameraSelected;
-    initCamera(cameras![isRearCameraSelected ? 0 : 1], mounted);
+  Future<void> setFlash() async {
+    if (!isFlashButtonClicked) {
+      await cameraController.setFlashMode(FlashMode.off);
+    } else {
+      await cameraController.setFlashMode(FlashMode.torch);
+    }
+  }
+
+  void changeFlashIcon() {
+    isFlashButtonClicked = !isFlashButtonClicked;
     notifyListeners();
   }
 }
