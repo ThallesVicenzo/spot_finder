@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:spot_finder/view-model/providers/save_spot_provider.dart';
+import 'package:spot_finder/view/map/widgets/buttons/categories_list.dart';
+import 'package:spot_finder/view/map/widgets/buttons/custom_alert_dialog.dart';
 import 'package:spot_finder/view/map/widgets/buttons/picture_button.dart';
 
 import 'buttons/confirm_button.dart';
@@ -29,7 +31,40 @@ class PopUp extends StatelessWidget {
                     const CustomTextField(
                       title: 'Nome',
                     ),
-                    const CustomTextField(title: 'Categorias'),
+                    CustomTextField(
+                      title: 'Categorias',
+                      readOnly: true,
+                      onTap: () async {
+                        await viewModel.getCategories();
+                        // ignore: use_build_context_synchronously
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CustomAlertDialog(
+                                title:
+                                    'Por favor, escolha uma categoria para seu lugar.',
+                                content: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: ListView.builder(
+                                      itemCount:
+                                          viewModel.categoriesModel.length,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0, vertical: 20.0),
+                                      itemBuilder: (context, index) {
+                                        return CategoriesList(
+                                            categories: viewModel
+                                                .categoriesModel[index]);
+                                      }),
+                                ),
+                                function: () {
+                                  Navigator.pop(context);
+                                },
+                              );
+                            });
+                      },
+                    ),
                     CustomTextField(
                       title: 'Endereço',
                       sufixIcon: Icons.pin_drop_sharp,
@@ -44,32 +79,18 @@ class PopUp extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(
-                                'Escolha uma cor para o marcador',
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .bodyMedium,
-                              ),
+                            return CustomAlertDialog(
+                              title:
+                                  'Por favor, escolha uma cor para seu marcador.',
                               content: BlockPicker(
                                 onColorChanged: (Color value) {
                                   viewModel.selectColor(value);
                                 },
                                 pickerColor: viewModel.currentColor,
                               ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    'Confirmar',
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .bodyMedium,
-                                  ),
-                                )
-                              ],
+                              function: () {
+                                Navigator.pop(context);
+                              },
                             );
                           },
                         );
