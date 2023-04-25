@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import '../../view/screens/map/map_screen.dart';
+
+import '../../view/map/map_screen.dart';
 
 class MarkersProvider extends ChangeNotifier {
   List<Marker> markers = [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spot_finder/view-model/providers/authentication_provider.dart';
-import '../../../view-model/shared/constants.dart';
+import '../../shared/constants.dart';
 import 'widgets/authentication_button.dart';
 
 class AuthenticationScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _AuthenticationScreen extends State<AuthenticationScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Olá',
+                  'Place Rater',
                   style: Theme.of(context).primaryTextTheme.bodyLarge,
                 ),
                 Padding(

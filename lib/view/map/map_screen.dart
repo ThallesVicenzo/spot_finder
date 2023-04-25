@@ -3,10 +3,10 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:spot_finder/model/services/location.dart';
-import 'package:spot_finder/view/screens/map/widgets/pop_up.dart';
 
 import '../../../view-model/providers/markers_provider.dart';
-import '../../../view-model/shared/constants.dart';
+import '../../shared/constants.dart';
+import 'widgets/pop_up.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -27,7 +27,6 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: implement loading screen
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: FutureBuilder(
