@@ -41,21 +41,26 @@ class PopUp extends StatelessWidget {
                             context: context,
                             builder: (BuildContext context) {
                               return CustomAlertDialog(
-                                title:
-                                    'Por favor, escolha uma categoria para seu lugar.',
+                                title: 'Por favor, escolha uma categoria.',
                                 content: SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.5,
+                                      MediaQuery.of(context).size.height * 0.2,
                                   width: MediaQuery.of(context).size.width,
-                                  child: ListView.builder(
+                                  child: GridView.builder(
                                       itemCount:
                                           viewModel.categoriesModel.length,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0, vertical: 20.0),
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3,
+                                              mainAxisSpacing: 20,
+                                              crossAxisSpacing: 10,
+                                              childAspectRatio: 2 / 1),
                                       itemBuilder: (context, index) {
                                         return CategoriesList(
-                                            categories: viewModel
-                                                .categoriesModel[index]);
+                                          index: index,
+                                          categories:
+                                              viewModel.categoriesModel[index],
+                                        );
                                       }),
                                 ),
                                 function: () {
