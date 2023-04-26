@@ -6,7 +6,9 @@ class SaveSpotProvider with ChangeNotifier {
   TextEditingController textController = TextEditingController();
   Color currentColor = const Color(0xFFF40B0B);
   List<Categories> categoriesModel = [];
-  bool isPressed = false;
+  int pressedIndex = -1;
+  late List<bool> categoriesBoolList =
+      categoriesModel.map((e) => false).toList();
 
   Future<String?> errorText() async {
     final text = textController.value.text;
@@ -21,7 +23,7 @@ class SaveSpotProvider with ChangeNotifier {
     return null;
   }
 
-  void onChanged(String value) {
+  void onTextFieldChanged(String value) {
     value = textController.text;
     notifyListeners();
   }
@@ -37,8 +39,17 @@ class SaveSpotProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void changeCategorieButtonColor() {
-    isPressed = !isPressed;
+  void onTap(index) {
+    pressedIndex = index;
     notifyListeners();
+  }
+
+  Color changeCategorieButtonColor(context, index) {
+    final isPressed = pressedIndex == index;
+    if (!isPressed) {
+      return Theme.of(context).primaryColor;
+    } else {
+      return Theme.of(context).focusColor;
+    }
   }
 }
