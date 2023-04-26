@@ -50,7 +50,7 @@ class CustomTextField extends StatelessWidget {
         ),
         onTap: onTap,
         onChanged: (value) {
-          provider.onChanged(value);
+          provider.onTextFieldChanged(value);
         },
       ),
     );
