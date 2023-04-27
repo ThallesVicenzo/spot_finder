@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spot_finder/model/models/categories.dart';
-
-import '../../../../view-model/providers/save_spot_provider.dart';
+import 'package:spot_finder/view-model/providers/save_spot_provider.dart';
 
 class CategoriesList extends StatelessWidget {
-  const CategoriesList(
-      {super.key, required this.categories, required this.index});
+  const CategoriesList({
+    super.key,
+    required this.categories,
+    required this.index,
+  });
 
   final Categories categories;
   final int index;
@@ -16,7 +18,7 @@ class CategoriesList extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        viewModel.onTap(index);
+        viewModel.onCategoryButtonTap(index);
       },
       child: Container(
         decoration: BoxDecoration(
