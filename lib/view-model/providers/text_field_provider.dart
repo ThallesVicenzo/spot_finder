@@ -5,11 +5,14 @@ class TextFieldProvider with ChangeNotifier {
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
   ];
   String? returnError;
+
+  void clearControllers() {
+    for (int i = 0; i < textEditingControllers.length; i++) {
+      textEditingControllers[i].clear();
+    }
+  }
 
   Future<String?> errorText() async {
     for (int i = 0; i < textEditingControllers.length; i++) {
@@ -26,5 +29,10 @@ class TextFieldProvider with ChangeNotifier {
     }
 
     return null;
+  }
+
+  void updateCategoryValue(String category) {
+    textEditingControllers[1].text = category;
+    notifyListeners();
   }
 }
