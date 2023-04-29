@@ -53,6 +53,19 @@ class _SaveSpotState extends State<SaveSpot> {
 
     return WillPopScope(
       onWillPop: () async {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return CustomAlertDialog(
+                  title: 'Tem certeza que quer voltar?',
+                  content: null,
+                  cancelButtonVisibility: true,
+                  function: () {
+                    textFieldProvider.clearControllers();
+                    Navigator.popUntil(context,
+                        (route) => route.settings.name == NamedRoutes.map);
+                  });
+            });
         return false;
       },
       child: Scaffold(
