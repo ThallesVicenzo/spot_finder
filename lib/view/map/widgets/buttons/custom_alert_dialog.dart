@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomAlertDialog extends StatelessWidget {
+class CustomAlertDialog extends StatefulWidget {
   const CustomAlertDialog(
       {super.key,
       required this.title,
@@ -8,20 +8,25 @@ class CustomAlertDialog extends StatelessWidget {
       required this.function});
 
   final String title;
-  final Widget content;
+  final Widget? content;
   final VoidCallback function;
 
+  @override
+  State<CustomAlertDialog> createState() => _CustomAlertDialogState();
+}
+
+class _CustomAlertDialogState extends State<CustomAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        title,
+        widget.title,
         style: Theme.of(context).primaryTextTheme.bodyMedium,
       ),
-      content: content,
+      content: widget.content,
       actions: [
         TextButton(
-          onPressed: function,
+          onPressed: widget.function,
           child: Text(
             'Confirmar',
             style: Theme.of(context).primaryTextTheme.bodyMedium,
