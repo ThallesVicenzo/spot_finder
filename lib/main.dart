@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:spot_finder/view-model/providers/text_field_provider.dart';
 
 import 'shared/theme.dart';
-import 'view-model/providers/authentication_provider.dart';
 import 'view-model/providers/markers_provider.dart';
 import 'view-model/providers/save_spot_provider.dart';
 import 'view-model/routes/named_routes.dart';
@@ -17,7 +16,6 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MarkersProvider()),
-        ChangeNotifierProvider(create: (_) => AuthenticationProvider()),
         ChangeNotifierProvider(create: (_) => SaveSpotProvider()),
         ChangeNotifierProvider(create: (_) => TextFieldProvider()),
       ],
