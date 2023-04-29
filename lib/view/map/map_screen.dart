@@ -6,7 +6,7 @@ import 'package:spot_finder/model/services/location.dart';
 
 import '../../../view-model/providers/markers_provider.dart';
 import '../../shared/constants.dart';
-import 'widgets/pop_up.dart';
+import 'widgets/save_spot.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -52,7 +52,7 @@ class _MapScreenState extends State<MapScreen> {
                                       horizontal: 15,
                                       vertical: 70,
                                     ),
-                                    child: PopUp(),
+                                    child: SaveSpot(),
                                   );
                                 });
                           },
