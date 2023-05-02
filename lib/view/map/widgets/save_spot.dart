@@ -6,12 +6,12 @@ import '../../../view-model/providers/save_spot_provider.dart';
 import '../../../view-model/providers/text_field_provider.dart';
 import '../../../view-model/routes/named_routes.dart';
 
-import '../../../view/map/widgets/categories_builder.dart';
 import '../../../view/map/widgets/buttons/custom_alert_dialog.dart';
 import '../../../view/map/widgets/buttons/picture_button.dart';
 
 import 'buttons/container_button.dart';
 import 'buttons/custom_text_field.dart';
+import 'categories/categories_builder.dart';
 
 class SaveSpot extends StatefulWidget {
   const SaveSpot({super.key});
@@ -128,6 +128,7 @@ class _SaveSpotState extends State<SaveSpot> {
                       ),
                       CustomTextField(
                         title: 'Endereço',
+                        action: TextInputAction.search,
                         errorText: textFieldProvider.returnError,
                         controller: textFieldProvider.textEditingControllers[2],
                         value: saveSpotProvider.address,
