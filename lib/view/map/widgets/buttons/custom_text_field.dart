@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.errorText,
     this.onChanged,
+    this.action = TextInputAction.done,
   });
 
   final String title;
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onChanged;
   final bool readOnly;
+  final TextInputAction action;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: TextField(
         controller: controller,
+        textInputAction: TextInputAction.search,
         readOnly: readOnly,
         decoration: InputDecoration(
           labelText: title,
