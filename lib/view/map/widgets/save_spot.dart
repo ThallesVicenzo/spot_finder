@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
-import 'package:spot_finder/view-model/providers/save_spot_provider.dart';
-import 'package:spot_finder/view-model/providers/text_field_provider.dart';
-import 'package:spot_finder/view-model/routes/named_routes.dart';
-import 'package:spot_finder/view/map/widgets/categories_builder.dart';
-import 'package:spot_finder/view/map/widgets/buttons/custom_alert_dialog.dart';
-import 'package:spot_finder/view/map/widgets/buttons/picture_button.dart';
+
+import '../../../view-model/providers/save_spot_provider.dart';
+import '../../../view-model/providers/text_field_provider.dart';
+import '../../../view-model/routes/named_routes.dart';
+
+import '../../../view/map/widgets/categories_builder.dart';
+import '../../../view/map/widgets/buttons/custom_alert_dialog.dart';
+import '../../../view/map/widgets/buttons/picture_button.dart';
 
 import 'buttons/container_button.dart';
 import 'buttons/custom_text_field.dart';
@@ -24,6 +26,15 @@ class _SaveSpotState extends State<SaveSpot> {
     final saveSpotProvider = Provider.of<SaveSpotProvider>(context);
     final textFieldProvider = Provider.of<TextFieldProvider>(context);
 
+    void customDispose() {
+      saveSpotProvider.currentColor = Colors.red;
+      saveSpotProvider.pressedIndex = -1;
+      textFieldProvider.clearControllers();
+      textFieldProvider.returnError = null;
+      Navigator.popUntil(
+          context, (route) => route.settings.name == NamedRoutes.map);
+    }
+
     void validation() {
       textFieldProvider.errorText().then((text) {
         setState(() {
@@ -40,9 +51,7 @@ class _SaveSpotState extends State<SaveSpot> {
                     title: 'Sucesso!',
                     content: null,
                     function: () {
-                      textFieldProvider.clearControllers();
-                      Navigator.popUntil(context,
-                          (route) => route.settings.name == NamedRoutes.map);
+                      customDispose();
                     });
               });
         } else {
@@ -61,9 +70,7 @@ class _SaveSpotState extends State<SaveSpot> {
                   content: null,
                   cancelButtonVisibility: true,
                   function: () {
-                    textFieldProvider.clearControllers();
-                    Navigator.popUntil(context,
-                        (route) => route.settings.name == NamedRoutes.map);
+                    customDispose();
                   });
             });
         return false;
@@ -124,6 +131,12 @@ class _SaveSpotState extends State<SaveSpot> {
                         errorText: textFieldProvider.returnError,
                         controller: textFieldProvider.textEditingControllers[2],
                         value: saveSpotProvider.address,
+                        onChanged: () async {
+                          await saveSpotProvider.getPlaces(textFieldProvider
+                              .textEditingControllers[2].value.text);
+                          print(saveSpotProvider.getPlaces(textFieldProvider
+                              .textEditingControllers[2].value.text));
+                        },
                         sufixIcon: Icons.pin_drop_sharp,
                         iconColor: saveSpotProvider.currentColor,
                       ),
