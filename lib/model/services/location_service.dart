@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 
-class LocationModel {
+class LocationService {
   Future<Position> getPosition() async {
     return await Geolocator.getCurrentPosition();
   }
