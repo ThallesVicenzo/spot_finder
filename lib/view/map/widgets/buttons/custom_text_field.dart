@@ -12,6 +12,7 @@ class CustomTextField extends StatelessWidget {
     this.iconColor = const Color(0xFFF44336),
     this.readOnly = false,
     this.errorText,
+    this.onChanged,
   });
 
   final String title;
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
   final IconData? sufixIcon;
   final Color iconColor;
   final VoidCallback? onTap;
+  final VoidCallback? onChanged;
   final bool readOnly;
 
   @override
@@ -28,32 +30,35 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: TextField(
-          controller: controller,
-          readOnly: readOnly,
-          decoration: InputDecoration(
-            labelText: title,
-            labelStyle: Theme.of(context).primaryTextTheme.bodySmall,
-            errorText: errorText,
-            suffixIcon: Icon(
-              sufixIcon,
-              color: iconColor,
-              size: 30,
-            ),
-            border: kInputBorder.copyWith(
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-                width: 2,
-              ),
-            ),
-            focusedBorder: kInputBorder.copyWith(
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-                width: 2,
-              ),
+        controller: controller,
+        readOnly: readOnly,
+        decoration: InputDecoration(
+          labelText: title,
+          labelStyle: Theme.of(context).primaryTextTheme.bodySmall,
+          errorText: errorText,
+          suffixIcon: Icon(
+            sufixIcon,
+            color: iconColor,
+            size: 30,
+          ),
+          border: kInputBorder.copyWith(
+            borderSide: BorderSide(
+              color: Theme.of(context).primaryColor,
+              width: 2,
             ),
           ),
-          onTap: onTap,
-          onChanged: (value) => value = value),
+          focusedBorder: kInputBorder.copyWith(
+            borderSide: BorderSide(
+              color: Theme.of(context).primaryColor,
+              width: 2,
+            ),
+          ),
+        ),
+        onTap: onTap,
+        onChanged: (value) {
+          onChanged;
+        },
+      ),
     );
   }
 }
