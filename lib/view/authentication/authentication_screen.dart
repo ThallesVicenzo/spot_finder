@@ -33,7 +33,7 @@ class _AuthenticationScreen extends State<AuthenticationScreen> {
                 width: MediaQuery.of(context).size.width * 0.78,
                 height: MediaQuery.of(context).size.height * 0.625,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).splashColor,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -53,7 +53,7 @@ class _AuthenticationScreen extends State<AuthenticationScreen> {
                             style: Theme.of(context)
                                 .primaryTextTheme
                                 .bodySmall!
-                                .copyWith(color: Colors.white),
+                                .copyWith(color: Theme.of(context).splashColor),
                             backGroundColor: Theme.of(context).primaryColor,
                             function: () {
                               authenticationProvider
@@ -66,7 +66,9 @@ class _AuthenticationScreen extends State<AuthenticationScreen> {
                             style: Theme.of(context)
                                 .primaryTextTheme
                                 .bodySmall!
-                                .copyWith(color: Colors.black),
+                                .copyWith(
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor),
                             function: () {},
                           )
                         ],
