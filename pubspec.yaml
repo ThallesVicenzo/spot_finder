@@ -39,7 +39,7 @@ dependencies:
   firebase_core: 
   flutter_facebook_auth: 
   cloud_firestore:
-  mapbox_search: 
+  http:
   flutter_map:
   latlong2:
   geolocator:
