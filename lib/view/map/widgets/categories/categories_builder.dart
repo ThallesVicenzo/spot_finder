@@ -4,7 +4,7 @@ import 'package:spot_finder/view-model/providers/save_spot_provider.dart';
 import 'package:spot_finder/view-model/providers/text_field_provider.dart';
 import 'package:spot_finder/view/map/widgets/buttons/container_button.dart';
 import 'package:spot_finder/view/map/widgets/buttons/custom_alert_dialog.dart';
-import 'buttons/custom_text_field.dart';
+import '../buttons/custom_text_field.dart';
 import 'categories_list.dart';
 
 class CategoriesBuilder extends StatefulWidget {
