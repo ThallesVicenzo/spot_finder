@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Categories {
-  const Categories({required this.categories});
+class CategoriesModel {
+  const CategoriesModel({required this.categories});
   final String categories;
 
-  factory Categories.fromJson(
+  factory CategoriesModel.fromJson(
     DocumentSnapshot<Map<String, dynamic>> map,
   ) =>
-      Categories(categories: map['Categoria']);
+      CategoriesModel(categories: map['Categoria']);
 }
