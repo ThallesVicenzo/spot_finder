@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
+import 'package:spot_finder/shared/debounce.dart';
 import 'package:spot_finder/view-model/providers/places_provider.dart';
 
 import '../../../shared/constants.dart';
@@ -23,6 +24,8 @@ class SaveSpot extends StatefulWidget {
 }
 
 class _SaveSpotState extends State<SaveSpot> {
+  final debounce = Debounce();
+
   @override
   Widget build(BuildContext context) {
     final saveSpotProvider = Provider.of<SaveSpotProvider>(context);
@@ -137,6 +140,11 @@ class _SaveSpotState extends State<SaveSpot> {
                           labelStyle:
                               Theme.of(context).primaryTextTheme.bodySmall,
                           errorText: textFieldProvider.returnError,
+                          suffixIcon: Icon(
+                            Icons.pin_drop_sharp,
+                            color: saveSpotProvider.currentColor,
+                            size: 30,
+                          ),
                           border: kInputBorder.copyWith(
                             borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
@@ -151,7 +159,9 @@ class _SaveSpotState extends State<SaveSpot> {
                           ),
                         ),
                         onChanged: (value) {
-                          placesProvider.showPredictions(value);
+                          debounce.handle(() {
+                            placesProvider.showPredictions(value);
+                          });
                         },
                       ),
                       CustomTextField(
