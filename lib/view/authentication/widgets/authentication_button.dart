@@ -8,6 +8,7 @@ class AuthenticationButton extends StatelessWidget {
     required this.function,
     required this.title,
     this.backGroundColor = Colors.transparent,
+    this.disable = false,
   });
 
   final String icon;
@@ -15,44 +16,48 @@ class AuthenticationButton extends StatelessWidget {
   final Color backGroundColor;
   final Function() function;
   final String title;
+  final bool disable;
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: function,
-      child: Container(
-        height: 55,
-        decoration: BoxDecoration(
-          color: backGroundColor,
-          borderRadius: BorderRadius.circular(7),
-          border: Border.all(
-            color: Theme.of(context).primaryColor,
+    return AbsorbPointer(
+      absorbing: disable,
+      child: TextButton(
+        onPressed: function,
+        child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+            color: backGroundColor,
+            borderRadius: BorderRadius.circular(7),
+            border: Border.all(
+              color: Theme.of(context).primaryColor,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Image.asset(
-                  icon,
-                  scale: 4,
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                  ),
-                  child: Text(
-                    title,
-                    style: style,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(
+                    icon,
+                    scale: 4,
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                    ),
+                    child: Text(
+                      title,
+                      style: style,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
