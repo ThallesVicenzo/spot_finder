@@ -1,0 +1,13 @@
+import 'dart:async';
+
+class Debounce {
+  Timer? _timer;
+
+  void handle(Function function) {
+    _timer?.cancel();
+
+    _timer = Timer(const Duration(milliseconds: 500), () {
+      function.call();
+    });
+  }
+}
