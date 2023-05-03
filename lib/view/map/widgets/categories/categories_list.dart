@@ -11,7 +11,7 @@ class CategoriesList extends StatelessWidget {
     required this.index,
   });
 
-  final Categories categories;
+  final CategoriesModel categories;
   final int index;
   @override
   Widget build(BuildContext context) {
