@@ -58,7 +58,7 @@ class _CategoriesBuilderState extends State<CategoriesBuilder> {
                             errorText: textFieldProvider.returnError,
                             controller:
                                 textFieldProvider.textEditingControllers[1],
-                            value: saveSpotProvider.category,
+                            onChangedValue: saveSpotProvider.category,
                           ),
                           function: () {
                             Navigator.pop(context);

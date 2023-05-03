@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
+import 'package:spot_finder/view-model/providers/places_provider.dart';
 
+import '../../../shared/constants.dart';
 import '../../../view-model/providers/save_spot_provider.dart';
 import '../../../view-model/providers/text_field_provider.dart';
 import '../../../view-model/routes/named_routes.dart';
@@ -25,6 +27,7 @@ class _SaveSpotState extends State<SaveSpot> {
   Widget build(BuildContext context) {
     final saveSpotProvider = Provider.of<SaveSpotProvider>(context);
     final textFieldProvider = Provider.of<TextFieldProvider>(context);
+    final placesProvider = Provider.of<PlacesProvider>(context);
 
     void customDispose() {
       saveSpotProvider.currentColor = Colors.red;
@@ -91,14 +94,14 @@ class _SaveSpotState extends State<SaveSpot> {
                         title: 'Nome',
                         controller: textFieldProvider.textEditingControllers[0],
                         errorText: textFieldProvider.returnError,
-                        value: saveSpotProvider.placeName,
+                        onChangedValue: saveSpotProvider.placeName,
                       ),
                       CustomTextField(
                         title: 'Categorias',
                         controller: textFieldProvider.textEditingControllers[1],
                         errorText: textFieldProvider.returnError,
                         readOnly: true,
-                        value: saveSpotProvider.category,
+                        onChangedValue: saveSpotProvider.category,
                         onTap: () {
                           showDialog(
                               barrierDismissible: false,
@@ -126,24 +129,34 @@ class _SaveSpotState extends State<SaveSpot> {
                               });
                         },
                       ),
-                      CustomTextField(
-                        title: 'Endereço',
-                        action: TextInputAction.search,
-                        errorText: textFieldProvider.returnError,
+                      TextField(
                         controller: textFieldProvider.textEditingControllers[2],
-                        value: saveSpotProvider.address,
-                        onChanged: () async {
-                          await saveSpotProvider.getPlaces(textFieldProvider
-                              .textEditingControllers[2].value.text);
-                          print(saveSpotProvider.getPlaces(textFieldProvider
-                              .textEditingControllers[2].value.text));
+                        textInputAction: TextInputAction.search,
+                        decoration: InputDecoration(
+                          labelText: 'Endereço',
+                          labelStyle:
+                              Theme.of(context).primaryTextTheme.bodySmall,
+                          errorText: textFieldProvider.returnError,
+                          border: kInputBorder.copyWith(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                          focusedBorder: kInputBorder.copyWith(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          placesProvider.showPredictions(value);
                         },
-                        sufixIcon: Icons.pin_drop_sharp,
-                        iconColor: saveSpotProvider.currentColor,
                       ),
                       CustomTextField(
                         title: 'Cor do marcador',
-                        value: saveSpotProvider.markerColor,
+                        onChangedValue: saveSpotProvider.markerColor,
                         controller: null,
                         sufixIcon: Icons.circle,
                         iconColor: saveSpotProvider.currentColor,
