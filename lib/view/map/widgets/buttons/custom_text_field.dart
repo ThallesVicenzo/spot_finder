@@ -5,25 +5,23 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.title,
-    required this.value,
+    required this.onChangedValue,
     required this.controller,
     this.onTap,
     this.sufixIcon,
     this.iconColor = const Color(0xFFF44336),
     this.readOnly = false,
     this.errorText,
-    this.onChanged,
     this.action = TextInputAction.done,
   });
 
   final String title;
-  final String value;
+  final String onChangedValue;
   final TextEditingController? controller;
   final String? errorText;
   final IconData? sufixIcon;
   final Color iconColor;
   final VoidCallback? onTap;
-  final VoidCallback? onChanged;
   final bool readOnly;
   final TextInputAction action;
 
@@ -33,7 +31,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: TextField(
         controller: controller,
-        textInputAction: TextInputAction.search,
+        textInputAction: action,
         readOnly: readOnly,
         decoration: InputDecoration(
           labelText: title,
@@ -58,9 +56,6 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         onTap: onTap,
-        onChanged: (value) {
-          onChanged;
-        },
       ),
     );
   }
