@@ -22,7 +22,7 @@ class CategoriesList extends StatelessWidget {
       onTap: () {
         saveSpotProvider.onCategoryButtonTap(index);
         saveSpotProvider.category = categories.categories;
-        textFieldProvider.updateCategoryValue(saveSpotProvider.category);
+        textFieldProvider.updateFieldValue(saveSpotProvider.category, 1);
       },
       child: Container(
         decoration: BoxDecoration(
