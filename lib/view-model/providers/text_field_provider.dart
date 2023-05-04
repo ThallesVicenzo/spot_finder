@@ -31,8 +31,8 @@ class TextFieldProvider with ChangeNotifier {
     return null;
   }
 
-  void updateCategoryValue(String category) {
-    textEditingControllers[1].text = category;
+  void updateFieldValue(String value, int index) {
+    textEditingControllers[index].text = value;
     notifyListeners();
   }
 }
