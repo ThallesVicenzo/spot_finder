@@ -25,6 +25,7 @@ class SaveSpot extends StatefulWidget {
 
 class _SaveSpotState extends State<SaveSpot> {
   final debounce = Debounce();
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,7 @@ class _SaveSpotState extends State<SaveSpot> {
       saveSpotProvider.currentColor = Colors.red;
       saveSpotProvider.pressedIndex = -1;
       textFieldProvider.clearControllers();
+      placesProvider.list?.clear();
       textFieldProvider.returnError = null;
       Navigator.popUntil(
           context, (route) => route.settings.name == NamedRoutes.map);
@@ -82,9 +84,11 @@ class _SaveSpotState extends State<SaveSpot> {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: Container(
           color: Theme.of(context).splashColor,
           child: SingleChildScrollView(
+            controller: scrollController,
             child: Column(
               children: [
                 PictureButton(),
@@ -132,43 +136,97 @@ class _SaveSpotState extends State<SaveSpot> {
                               });
                         },
                       ),
-                      TextField(
-                        controller: textFieldProvider.textEditingControllers[2],
-                        textInputAction: TextInputAction.search,
-                        decoration: InputDecoration(
-                          labelText: 'Endereço',
-                          labelStyle:
-                              Theme.of(context).primaryTextTheme.bodySmall,
-                          errorText: textFieldProvider.returnError,
-                          suffixIcon: Icon(
-                            Icons.pin_drop_sharp,
-                            color: saveSpotProvider.currentColor,
-                            size: 30,
-                          ),
-                          border: kInputBorder.copyWith(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: TextField(
+                          controller:
+                              textFieldProvider.textEditingControllers[2],
+                          textInputAction: TextInputAction.search,
+                          decoration: InputDecoration(
+                            labelText: 'Endereço',
+                            labelStyle:
+                                Theme.of(context).primaryTextTheme.bodySmall,
+                            errorText: textFieldProvider.returnError,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                textFieldProvider.textEditingControllers[2]
+                                    .clear();
+                                placesProvider.list!.clear();
+                                placesProvider.onClickVisibility();
+                              },
+                              icon: Icon(
+                                Icons.clear,
+                                color: Theme.of(context).primaryColor,
+                                size: 25,
+                              ),
+                            ),
+                            border: kInputBorder.copyWith(
+                              borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor,
+                                width: 2,
+                              ),
+                            ),
+                            focusedBorder: kInputBorder.copyWith(
+                              borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor,
+                                width: 2,
+                              ),
                             ),
                           ),
-                          focusedBorder: kInputBorder.copyWith(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
+                          onChanged: (value) {
+                            debounce.handle(() {
+                              placesProvider
+                                  .showPredictions(value)
+                                  .then((value) {
+                                scrollController.animateTo(
+                                  200.0,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.linear,
+                                );
+                              });
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: Visibility(
+                          visible: placesProvider.returnVisibility(),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
                             ),
+                            child: ListView.builder(
+                                keyboardDismissBehavior:
+                                    ScrollViewKeyboardDismissBehavior.onDrag,
+                                itemCount: placesProvider.list!.length,
+                                itemBuilder: (context, index) {
+                                  return TextButton(
+                                    onPressed: () {
+                                      textFieldProvider.updateFieldValue(
+                                          placesProvider
+                                              .list![index].description!,
+                                          2);
+                                      placesProvider.onClickVisibility();
+                                    },
+                                    child: Text(
+                                      placesProvider.list![index].description!,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .bodySmall,
+                                    ),
+                                  );
+                                }),
                           ),
                         ),
-                        onChanged: (value) {
-                          debounce.handle(() {
-                            placesProvider.showPredictions(value);
-                          });
-                        },
                       ),
                       CustomTextField(
                         title: 'Cor do marcador',
                         onChangedValue: saveSpotProvider.markerColor,
                         controller: null,
-                        sufixIcon: Icons.circle,
+                        sufixIcon: Icons.pin_drop_sharp,
                         iconColor: saveSpotProvider.currentColor,
                         readOnly: true,
                         onTap: () {
