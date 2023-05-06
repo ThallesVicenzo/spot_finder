@@ -5,7 +5,6 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.title,
-    required this.onChangedValue,
     required this.controller,
     this.onTap,
     this.sufixIcon,
@@ -16,7 +15,6 @@ class CustomTextField extends StatelessWidget {
   });
 
   final String title;
-  final String onChangedValue;
   final TextEditingController? controller;
   final String? errorText;
   final IconData? sufixIcon;
