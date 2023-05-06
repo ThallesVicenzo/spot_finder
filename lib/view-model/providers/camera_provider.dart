@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +17,6 @@ class CameraProvider with ChangeNotifier {
   bool isPictureTaken = false;
 
   XFile? picture;
-  ImageProvider<Object>? displayImage;
 
   Future takePicture(context) async {
     if (!cameraController.value.isInitialized) {
@@ -31,8 +28,8 @@ class CameraProvider with ChangeNotifier {
     try {
       await setFlash();
       picture = await cameraController.takePicture();
-
-      !isPictureTaken;
+      isPictureTaken = true;
+      cameraController.setFlashMode(FlashMode.off);
       Navigator.of(context).pop(context);
     } on CameraException catch (e) {
       return debugPrint('$e');
@@ -66,12 +63,6 @@ class CameraProvider with ChangeNotifier {
 
   void changeFlashIcon() {
     isFlashButtonClicked = !isFlashButtonClicked;
-    notifyListeners();
-  }
-
-  Future<void> xFileToImage(XFile? xFile) async {
-    final Uint8List bytes = await xFile!.readAsBytes();
-    displayImage = Image.memory(bytes).image;
     notifyListeners();
   }
 }
