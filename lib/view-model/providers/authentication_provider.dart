@@ -18,7 +18,7 @@ class AuthenticationProvider with ChangeNotifier {
       FacebookAuth.instance.getUserData().then((userData) {
         disableButtons();
 
-        Navigator.pushNamed(context, NamedRoutes.map);
+        Navigator.pushReplacementNamed(context, NamedRoutes.map);
       });
     });
     disableButtons();
