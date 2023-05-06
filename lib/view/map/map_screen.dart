@@ -18,16 +18,22 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  MarkersProvider markersProvider = MarkersProvider();
+  late MarkersProvider markersProvider;
+  late LocationProvider locationProvider;
+
+  @override
+  void didChangeDependencies() {
+    locationProvider = Provider.of<LocationProvider>(context);
+    markersProvider = Provider.of<MarkersProvider>(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final location = Provider.of<LocationProvider>(context);
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: FutureBuilder(
-          future: location.getPosition(),
+          future: locationProvider.getPosition(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const LoadingScreen();
@@ -37,7 +43,8 @@ class _MapScreenState extends State<MapScreen> {
                 Flexible(
                   child: FlutterMap(
                     options: MapOptions(
-                      center: LatLng(location.latitude, location.longitude),
+                      center: LatLng(locationProvider.latitude,
+                          locationProvider.longitude),
                       zoom: 18.0,
                       onTap: (tapPosition, point) {
                         showDialog(
