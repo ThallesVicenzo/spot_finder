@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spot_finder/model/models/categories.dart';
+import 'package:spot_finder/view-model/providers/categories_provider.dart';
 import 'package:spot_finder/view-model/providers/save_spot_provider.dart';
 import 'package:spot_finder/view-model/providers/text_field_provider.dart';
 
@@ -9,36 +10,41 @@ class CategoriesList extends StatelessWidget {
     super.key,
     required this.categories,
     required this.index,
+    required this.saveSpotProvider,
+    required this.textFieldProvider,
   });
 
   final CategoriesModel categories;
   final int index;
+  final SaveSpotProvider saveSpotProvider;
+  final TextFieldProvider textFieldProvider;
+
   @override
   Widget build(BuildContext context) {
-    final saveSpotProvider = Provider.of<SaveSpotProvider>(context);
-    final textFieldProvider = Provider.of<TextFieldProvider>(context);
-
-    return InkWell(
-      onTap: () {
-        saveSpotProvider.onCategoryButtonTap(index);
-        saveSpotProvider.category = categories.categories;
-        textFieldProvider.updateFieldValue(saveSpotProvider.category, 1);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: saveSpotProvider.changeCategorieButtonColor(context, index),
-            width: 2,
+    return Consumer<CategoriesProvider>(
+      builder: (context, categoriesProvider, child) => InkWell(
+        onTap: () {
+          categoriesProvider.onCategoryButtonTap(index);
+          saveSpotProvider.category = categories.categories;
+          textFieldProvider.updateFieldValue(saveSpotProvider.category, 1);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color:
+                  categoriesProvider.changeCategorieButtonColor(context, index),
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(15),
           ),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Center(
-          child: Text(
-            categories.categories,
-            style: Theme.of(context)
-                .primaryTextTheme
-                .bodySmall!
-                .copyWith(fontSize: 12),
+          child: Center(
+            child: Text(
+              categories.categories,
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .bodySmall!
+                  .copyWith(fontSize: 12),
+            ),
           ),
         ),
       ),
