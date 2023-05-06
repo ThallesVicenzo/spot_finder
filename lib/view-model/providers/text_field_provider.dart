@@ -23,8 +23,8 @@ class TextFieldProvider with ChangeNotifier {
       if (text.length <= 2) {
         return 'Não pode ter menos que 3 caracteres.';
       }
-      if (text.length > 10) {
-        return 'Não pode ter mais que 9 caracteres.';
+      if (textEditingControllers[1].text.length > 10) {
+        return 'Uma categoria não pode ter mais que 9 caracteres.';
       }
     }
 
@@ -33,6 +33,11 @@ class TextFieldProvider with ChangeNotifier {
 
   void updateFieldValue(String value, int index) {
     textEditingControllers[index].text = value;
+    notifyListeners();
+  }
+
+  void updateErrorText(String? text) {
+    returnError = text;
     notifyListeners();
   }
 }
