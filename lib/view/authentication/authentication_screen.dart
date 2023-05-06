@@ -12,9 +12,10 @@ class AuthenticationScreen extends StatefulWidget {
 }
 
 class _AuthenticationScreen extends State<AuthenticationScreen> {
+  final authenticationProvider = AuthenticationProvider();
+
   @override
   Widget build(BuildContext context) {
-    final authenticationProvider = AuthenticationProvider();
     return ChangeNotifierProvider(
       create: (_) => authenticationProvider,
       child: Consumer<AuthenticationProvider>(
