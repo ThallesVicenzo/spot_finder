@@ -20,7 +20,7 @@ class _PredictionsListState extends State<PredictionsList> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
-      child: Consumer<PlacesProvider>(
+      child: Consumer<PredictionsProvider>(
         builder: (context, placesProvider, child) => Visibility(
           visible: placesProvider.returnVisibility(),
           child: Container(

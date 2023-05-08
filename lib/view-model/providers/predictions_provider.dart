@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spot_finder/model/models/predictions.dart';
 import 'package:spot_finder/view-model/repository/places_repository.dart';
 
-class PlacesProvider with ChangeNotifier {
+class PredictionsProvider with ChangeNotifier {
   final PlacesRepository _repository = PlacesRepository();
   List<PredictionsModel>? list = [];
   final _visibility = false;
