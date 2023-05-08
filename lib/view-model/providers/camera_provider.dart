@@ -1,9 +1,18 @@
+import 'dart:typed_data';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/camera/camera_screen.dart';
 
 class CameraProvider with ChangeNotifier {
+  late CameraController cameraController;
+
+  bool isFlashButtonClicked = false;
+  bool isPictureTaken = false;
+
+  ImageProvider<Object>? picture;
+
   Future<void> goToPictureScreen(context) async {
     final cameras = await availableCameras();
 
@@ -11,33 +20,7 @@ class CameraProvider with ChangeNotifier {
         MaterialPageRoute(builder: (_) => CameraScreen(cameras: cameras)));
   }
 
-  late CameraController cameraController;
-
-  bool isFlashButtonClicked = false;
-  bool isPictureTaken = false;
-
-  XFile? picture;
-
-  Future takePicture(context) async {
-    if (!cameraController.value.isInitialized) {
-      return null;
-    }
-    if (cameraController.value.isTakingPicture) {
-      return null;
-    }
-    try {
-      await setFlash();
-      picture = await cameraController.takePicture();
-      isPictureTaken = true;
-      cameraController.setFlashMode(FlashMode.off);
-      Navigator.of(context).pop(context);
-    } on CameraException catch (e) {
-      return debugPrint('$e');
-    }
-    notifyListeners();
-  }
-
-  Future initCamera(
+  Future<void> initCamera(
     CameraDescription cameraDescription,
     bool mounted,
   ) async {
@@ -50,6 +33,35 @@ class CameraProvider with ChangeNotifier {
     } on CameraException catch (e) {
       debugPrint("camera error $e");
     }
+    notifyListeners();
+  }
+
+  Future takePicture(context) async {
+    if (!cameraController.value.isInitialized) {
+      return null;
+    }
+    if (cameraController.value.isTakingPicture) {
+      return null;
+    }
+    try {
+      await setFlash();
+
+      xFileToImage(await cameraController.takePicture());
+
+      isPictureTaken = true;
+
+      cameraController.setFlashMode(FlashMode.off);
+
+      Navigator.pop(context);
+    } on CameraException catch (e) {
+      return debugPrint('$e');
+    }
+    notifyListeners();
+  }
+
+  Future<void> xFileToImage(XFile xFile) async {
+    final Uint8List bytes = await xFile.readAsBytes();
+    picture = Image.memory(bytes).image;
     notifyListeners();
   }
 
