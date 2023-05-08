@@ -45,6 +45,7 @@ class _SaveSpotState extends State<SaveSpot> {
   Widget build(BuildContext _) {
     final cameraProvider = Provider.of<CameraProvider>(context);
     final categoriesProvider = Provider.of<CategoriesProvider>(context);
+    final theme = Theme.of(context);
 
     void resetValues() {
       cameraProvider.picture = null;
@@ -85,7 +86,7 @@ class _SaveSpotState extends State<SaveSpot> {
             resizeToAvoidBottomInset: true,
             body: Consumer<SaveSpotProvider>(
               builder: (_, saveSpotProvider, child) => Container(
-                color: Theme.of(context).splashColor,
+                color: theme.splashColor,
                 child: SingleChildScrollView(
                   controller: scrollController,
                   child: Column(
@@ -125,8 +126,7 @@ class _SaveSpotState extends State<SaveSpot> {
                                                   return Center(
                                                       child:
                                                           CircularProgressIndicator(
-                                                    color: Theme.of(context)
-                                                        .splashColor,
+                                                    color: theme.splashColor,
                                                   ));
                                                 }
                                                 return CustomAlertDialog(
@@ -158,9 +158,8 @@ class _SaveSpotState extends State<SaveSpot> {
                                     textInputAction: TextInputAction.search,
                                     decoration: InputDecoration(
                                       labelText: 'Endereço',
-                                      labelStyle: Theme.of(context)
-                                          .primaryTextTheme
-                                          .bodySmall,
+                                      labelStyle:
+                                          theme.primaryTextTheme.bodySmall,
                                       errorText: textFieldProvider.returnError,
                                       suffixIcon: IconButton(
                                         onPressed: () {
@@ -172,19 +171,19 @@ class _SaveSpotState extends State<SaveSpot> {
                                         },
                                         icon: Icon(
                                           Icons.clear,
-                                          color: Theme.of(context).primaryColor,
+                                          color: theme.primaryColor,
                                           size: 25,
                                         ),
                                       ),
                                       border: kInputBorder.copyWith(
                                         borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
+                                          color: theme.primaryColor,
                                           width: 2,
                                         ),
                                       ),
                                       focusedBorder: kInputBorder.copyWith(
                                         borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
+                                          color: theme.primaryColor,
                                           width: 2,
                                         ),
                                       ),
@@ -206,8 +205,22 @@ class _SaveSpotState extends State<SaveSpot> {
                                   ),
                                 ),
                               ),
-                              PredictionsList(
-                                  textFieldProvider: textFieldProvider),
+                              const PredictionsList(),
+                              CustomTextField(
+                                title: 'Descrição',
+                                errorText: textFieldProvider.returnError,
+                                action: TextInputAction.newline,
+                                controller:
+                                    textFieldProvider.textEditingControllers[3],
+                                maxLines: 5,
+                                minLines: 3,
+                                sufixIcon: Icons.clear,
+                                iconColor: theme.primaryColor,
+                                sufixIconFunction: () {
+                                  textFieldProvider.textEditingControllers[3]
+                                      .clear();
+                                },
+                              ),
                               Consumer<SelectColorsProvider>(
                                 builder: (_, selectColorsProvider, child) =>
                                     CustomTextField(
@@ -248,12 +261,15 @@ class _SaveSpotState extends State<SaveSpot> {
                                     context: context,
                                     saveSpotProvider: saveSpotProvider,
                                     textFieldProvider: textFieldProvider,
-                                    widget: CustomAlertDialog(
-                                      title: 'Sucesso!',
-                                      content: null,
-                                      function: () {
-                                        resetValues();
-                                      },
+                                    widget: WillPopScope(
+                                      onWillPop: () async => false,
+                                      child: CustomAlertDialog(
+                                        title: 'Sucesso!',
+                                        content: null,
+                                        function: () {
+                                          resetValues();
+                                        },
+                                      ),
                                     ),
                                   );
                                 },
