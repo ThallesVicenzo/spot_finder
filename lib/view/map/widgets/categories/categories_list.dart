@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:spot_finder/model/models/categories.dart';
-import 'package:spot_finder/view-model/providers/categories_provider.dart';
-import 'package:spot_finder/view-model/providers/save_spot_provider.dart';
-import 'package:spot_finder/view-model/providers/text_field_provider.dart';
+
+import '../../../../view-model/providers/new_spot_providers/categories_provider.dart';
+import '../../../../view-model/providers/new_spot_providers/save_spot_provider.dart';
+import '../../../../view-model/providers/new_spot_providers/text_field_provider.dart';
 
 class CategoriesList extends StatelessWidget {
   const CategoriesList({

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:spot_finder/shared/debounce.dart';
-import 'package:spot_finder/view-model/providers/categories_provider.dart';
-import 'package:spot_finder/view-model/providers/predictions_provider.dart';
-import 'package:spot_finder/view-model/providers/select_colors_provider.dart';
+
 import 'package:spot_finder/view/map/widgets/predictions_list.dart';
 
 import '../../../shared/constants.dart';
-import '../../../view-model/providers/camera_provider.dart';
-import '../../../view-model/providers/save_spot_provider.dart';
-import '../../../view-model/providers/text_field_provider.dart';
+import '../../../view-model/providers/new_spot_providers/camera_provider.dart';
+import '../../../view-model/providers/new_spot_providers/categories_provider.dart';
+import '../../../view-model/providers/new_spot_providers/predictions_provider.dart';
+import '../../../view-model/providers/new_spot_providers/save_spot_provider.dart';
+import '../../../view-model/providers/new_spot_providers/select_colors_provider.dart';
+import '../../../view-model/providers/new_spot_providers/text_field_provider.dart';
+
 import '../../../view-model/routes/named_routes.dart';
 
 import '../../../view/map/widgets/buttons/custom_alert_dialog.dart';

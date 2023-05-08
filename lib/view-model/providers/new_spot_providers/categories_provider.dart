@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../model/models/categories.dart';
-import '../repository/firebase_repository.dart';
+import '../../../model/models/categories.dart';
+import '../../repository/firebase_repository.dart';
 
 class CategoriesProvider with ChangeNotifier {
   List<CategoriesModel> categoriesModel = [];

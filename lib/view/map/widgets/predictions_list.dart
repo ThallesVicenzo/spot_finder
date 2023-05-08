@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spot_finder/view-model/providers/predictions_provider.dart';
-import 'package:spot_finder/view-model/providers/text_field_provider.dart';
+
+import '../../../view-model/providers/new_spot_providers/predictions_provider.dart';
+import '../../../view-model/providers/new_spot_providers/text_field_provider.dart';
 
 class PredictionsList extends StatefulWidget {
   const PredictionsList({

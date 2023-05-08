@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import '../../view/camera/camera_screen.dart';
+import '../../../view/camera/camera_screen.dart';
 
 class CameraProvider with ChangeNotifier {
   late CameraController cameraController;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../view-model/providers/camera_provider.dart';
+import '../../../../view-model/providers/new_spot_providers/camera_provider.dart';
 
 class PictureButton extends StatelessWidget {
   const PictureButton({

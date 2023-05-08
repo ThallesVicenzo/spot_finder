@@ -1,12 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spot_finder/view-model/providers/camera_provider.dart';
-import 'package:spot_finder/view-model/providers/categories_provider.dart';
-import '../view-model/providers/location_provider.dart';
 
 import 'shared/theme.dart';
+
+import '../view-model/providers/location_provider.dart';
 import 'view-model/providers/markers_provider.dart';
+import 'view-model/providers/new_spot_providers/camera_provider.dart';
+import 'view-model/providers/new_spot_providers/categories_provider.dart';
 import 'view-model/routes/named_routes.dart';
 import 'view-model/routes/routes.dart';
 

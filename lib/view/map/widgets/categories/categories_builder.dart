@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:spot_finder/view-model/providers/save_spot_provider.dart';
-import 'package:spot_finder/view-model/providers/text_field_provider.dart';
+
 import 'package:spot_finder/view/map/widgets/buttons/container_button.dart';
 import 'package:spot_finder/view/map/widgets/buttons/custom_alert_dialog.dart';
-import '../../../../view-model/providers/categories_provider.dart';
+
+import '../../../../view-model/providers/new_spot_providers/categories_provider.dart';
+import '../../../../view-model/providers/new_spot_providers/save_spot_provider.dart';
+import '../../../../view-model/providers/new_spot_providers/text_field_provider.dart';
 import '../buttons/custom_text_field.dart';
 import 'categories_list.dart';
 
