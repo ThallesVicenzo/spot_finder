@@ -26,18 +26,13 @@ class PictureButton extends StatelessWidget {
               child: cameraProvider.isPictureTaken
                   ? Stack(
                       children: [
-                        Center(
+                        Positioned.fill(
                           child: Image(
-                            image: ResizeImage(
-                              cameraProvider.picture!,
-                              height: (size.height * 0.3).toInt(),
-                              width: (size.width).toInt(),
-                            ),
-                            filterQuality: FilterQuality.high,
+                            image: cameraProvider.picture!,
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topRight,
+                        Center(
                           child: Icon(
                             Icons.camera_alt,
                             color: theme.primaryColor,
