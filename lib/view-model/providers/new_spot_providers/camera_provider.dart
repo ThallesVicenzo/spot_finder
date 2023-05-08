@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../view/camera/camera_screen.dart';
 
 class CameraProvider with ChangeNotifier {
-  late CameraController cameraController;
+  late CameraController? cameraController;
 
   bool isFlashButtonClicked = false;
   bool isPictureTaken = false;
@@ -27,7 +27,7 @@ class CameraProvider with ChangeNotifier {
     cameraController =
         CameraController(cameraDescription, ResolutionPreset.high);
     try {
-      await cameraController.initialize().then((_) {
+      await cameraController!.initialize().then((_) {
         return;
       });
     } on CameraException catch (e) {
@@ -37,20 +37,20 @@ class CameraProvider with ChangeNotifier {
   }
 
   Future takePicture(context) async {
-    if (!cameraController.value.isInitialized) {
+    if (!cameraController!.value.isInitialized) {
       return null;
     }
-    if (cameraController.value.isTakingPicture) {
+    if (cameraController!.value.isTakingPicture) {
       return null;
     }
     try {
       await setFlash();
 
-      xFileToImage(await cameraController.takePicture());
+      xFileToImage(await cameraController!.takePicture());
 
       isPictureTaken = true;
 
-      cameraController.setFlashMode(FlashMode.off);
+      cameraController!.setFlashMode(FlashMode.off);
 
       Navigator.pop(context);
     } on CameraException catch (e) {
@@ -67,9 +67,9 @@ class CameraProvider with ChangeNotifier {
 
   Future<void> setFlash() async {
     if (!isFlashButtonClicked) {
-      await cameraController.setFlashMode(FlashMode.off);
+      await cameraController!.setFlashMode(FlashMode.off);
     } else {
-      await cameraController.setFlashMode(FlashMode.torch);
+      await cameraController!.setFlashMode(FlashMode.torch);
     }
   }
 

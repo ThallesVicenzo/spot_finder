@@ -37,7 +37,7 @@ class _SaveSpotState extends State<SaveSpot> {
   @override
   void dispose() {
     scrollController.dispose();
-    cameraProvider.cameraController.dispose();
+    cameraProvider.cameraController!.dispose();
     super.dispose();
   }
 

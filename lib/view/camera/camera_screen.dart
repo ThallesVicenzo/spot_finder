@@ -29,8 +29,8 @@ class _CameraScreenState extends State<CameraScreen> {
         child: Consumer<CameraProvider>(
           builder: (_, cameraProvider, __) => Stack(
             children: [
-              (cameraProvider.cameraController.value.isInitialized)
-                  ? CameraPreview(cameraProvider.cameraController)
+              (cameraProvider.cameraController!.value.isInitialized)
+                  ? CameraPreview(cameraProvider.cameraController!)
                   : Container(
                       color: Colors.black,
                       child: const Center(
