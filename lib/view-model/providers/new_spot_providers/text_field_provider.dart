@@ -5,6 +5,7 @@ class TextFieldProvider with ChangeNotifier {
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
+    TextEditingController(),
   ];
   String? returnError;
 
@@ -25,6 +26,9 @@ class TextFieldProvider with ChangeNotifier {
       }
       if (textEditingControllers[1].text.length > 10) {
         return 'Uma categoria não pode ter mais que 9 caracteres.';
+      }
+      if (textEditingControllers[3].text.length > 500) {
+        return 'A descrição não pode ter mais do que 500 caractéres';
       }
     }
 
