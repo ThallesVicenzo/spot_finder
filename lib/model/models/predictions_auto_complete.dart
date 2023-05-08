@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-import 'package:spot_finder/model/models/places.dart';
+import 'package:spot_finder/model/models/predictions.dart';
 
 class PlacesAutoCompleteModel {
   final String? status;
-  final List<PlacesModel>? predictions;
+  final List<PredictionsModel>? predictions;
 
   PlacesAutoCompleteModel({this.status, this.predictions});
 
   factory PlacesAutoCompleteModel.fromJson(Map<String, dynamic> json) {
     return PlacesAutoCompleteModel(
         status: json['status'] as String?,
-        predictions: List<PlacesModel>.from(
-          json['predictions']?.map<PlacesModel>(
-            (args) => PlacesModel.fromJson(args),
+        predictions: List<PredictionsModel>.from(
+          json['predictions']?.map<PredictionsModel>(
+            (args) => PredictionsModel.fromJson(args),
           ),
         ));
   }

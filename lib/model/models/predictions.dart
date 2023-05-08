@@ -1,11 +1,11 @@
-class PlacesModel {
+class PredictionsModel {
   final String? description;
   final String? reference;
 
-  PlacesModel({this.reference, this.description});
+  PredictionsModel({this.reference, this.description});
 
-  factory PlacesModel.fromJson(Map<String, dynamic> json) {
-    return PlacesModel(
+  factory PredictionsModel.fromJson(Map<String, dynamic> json) {
+    return PredictionsModel(
       description: json['description'] as String?,
       reference: json['reference'] as String?,
     );
