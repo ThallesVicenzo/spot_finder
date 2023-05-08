@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view-model/providers/new_spot_providers/predictions_provider.dart';
-import '../../../view-model/providers/new_spot_providers/text_field_provider.dart';
 
 class PredictionsList extends StatefulWidget {
   const PredictionsList({
     super.key,
-    required this.textFieldProvider,
   });
-
-  final TextFieldProvider textFieldProvider;
 
   @override
   State<PredictionsList> createState() => _PredictionsListState();
@@ -37,8 +33,6 @@ class _PredictionsListState extends State<PredictionsList> {
                 itemBuilder: (context, index) {
                   return TextButton(
                     onPressed: () {
-                      widget.textFieldProvider.updateFieldValue(
-                          placesProvider.list![index].description!, 2);
                       placesProvider.onClickVisibility();
                     },
                     child: Text(

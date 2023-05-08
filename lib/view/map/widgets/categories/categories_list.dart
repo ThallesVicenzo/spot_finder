@@ -26,8 +26,6 @@ class CategoriesList extends StatelessWidget {
       builder: (context, categoriesProvider, child) => InkWell(
         onTap: () {
           categoriesProvider.onCategoryButtonTap(index);
-          saveSpotProvider.category = categories.categories;
-          textFieldProvider.updateFieldValue(saveSpotProvider.category, 1);
         },
         child: Container(
           decoration: BoxDecoration(
