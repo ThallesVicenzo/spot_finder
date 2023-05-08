@@ -45,7 +45,6 @@ dependencies:
   geolocator:
   provider:
   camera:
-  cross_file_image:
   flutter_colorpicker:
 
 dev_dependencies:
