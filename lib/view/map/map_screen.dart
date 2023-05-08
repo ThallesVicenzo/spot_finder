@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:spot_finder/view-model/providers/location_provider.dart';
 
+import '../../view-model/providers/map_providers/location_provider.dart';
+import '../../view-model/providers/map_providers/markers_provider.dart';
 import '../../view/map/loading_screen.dart';
 
-import '../../../view-model/providers/markers_provider.dart';
 import '../../shared/constants.dart';
 import 'widgets/save_spot.dart';
 

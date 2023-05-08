@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:spot_finder/view-model/providers/location_provider.dart';
+
+import 'location_provider.dart';
 
 class MarkersProvider extends ChangeNotifier {
   List<Marker> getMarkersList(context) {

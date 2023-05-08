@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'shared/theme.dart';
 
-import '../view-model/providers/location_provider.dart';
-import 'view-model/providers/markers_provider.dart';
+import 'view-model/providers/map_providers/location_provider.dart';
+import 'view-model/providers/map_providers/markers_provider.dart';
 import 'view-model/providers/new_spot_providers/camera_provider.dart';
 import 'view-model/providers/new_spot_providers/categories_provider.dart';
 import 'view-model/routes/named_routes.dart';
