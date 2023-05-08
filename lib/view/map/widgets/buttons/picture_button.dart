@@ -1,4 +1,3 @@
-import 'package:cross_file_image/cross_file_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +10,9 @@ class PictureButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
+
     return Material(
       child: Consumer<CameraProvider>(
         builder: (context, cameraProvider, child) => InkWell(
@@ -18,23 +20,27 @@ class PictureButton extends StatelessWidget {
             CameraProvider().goToPictureScreen(context);
           },
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: size.height * 0.2,
             child: Container(
-              color: Theme.of(context).cardColor,
+              color: theme.cardColor,
               child: cameraProvider.isPictureTaken
                   ? Stack(
                       children: [
                         Center(
                           child: Image(
-                            image:
-                                XFileImage(cameraProvider.picture!, scale: 0.1),
-                            height: MediaQuery.of(context).size.height * 0.2,
+                            image: ResizeImage(
+                              cameraProvider.picture!,
+                              height: (size.height * 0.3).toInt(),
+                              width: (size.width).toInt(),
+                            ),
+                            filterQuality: FilterQuality.high,
                           ),
                         ),
-                        Center(
+                        Align(
+                          alignment: Alignment.topRight,
                           child: Icon(
                             Icons.camera_alt,
-                            color: Theme.of(context).primaryColor,
+                            color: theme.primaryColor,
                             size: 45,
                           ),
                         ),
@@ -44,7 +50,7 @@ class PictureButton extends StatelessWidget {
                       child: Icon(
                         Icons.camera_alt,
                         size: 45,
-                        color: Theme.of(context).primaryColor,
+                        color: theme.primaryColor,
                       ),
                     ),
             ),
