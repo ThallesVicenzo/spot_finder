@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:spot_finder/view-model/providers/places_provider.dart';
+import 'package:spot_finder/view-model/providers/predictions_provider.dart';
 import 'package:spot_finder/view-model/providers/text_field_provider.dart';
 
 class PredictionsList extends StatefulWidget {
