@@ -3,7 +3,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:spot_finder/shared/debounce.dart';
 import 'package:spot_finder/view-model/providers/categories_provider.dart';
-import 'package:spot_finder/view-model/providers/places_provider.dart';
+import 'package:spot_finder/view-model/providers/predictions_provider.dart';
 import 'package:spot_finder/view-model/providers/select_colors_provider.dart';
 import 'package:spot_finder/view/map/widgets/predictions_list.dart';
 
