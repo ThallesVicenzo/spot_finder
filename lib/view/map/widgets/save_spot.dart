@@ -8,6 +8,7 @@ import 'package:spot_finder/view-model/providers/select_colors_provider.dart';
 import 'package:spot_finder/view/map/widgets/predictions_list.dart';
 
 import '../../../shared/constants.dart';
+import '../../../view-model/providers/camera_provider.dart';
 import '../../../view-model/providers/save_spot_provider.dart';
 import '../../../view-model/providers/text_field_provider.dart';
 import '../../../view-model/routes/named_routes.dart';
@@ -29,23 +30,37 @@ class SaveSpot extends StatefulWidget {
 class _SaveSpotState extends State<SaveSpot> {
   final debounce = Debounce();
   final scrollController = ScrollController();
+  final cameraProvider = CameraProvider();
 
   @override
   void dispose() {
     scrollController.dispose();
+    cameraProvider.cameraController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext _) {
+    final cameraProvider = Provider.of<CameraProvider>(context);
+    final categoriesProvider = Provider.of<CategoriesProvider>(context);
+
+    void resetValues() {
+      cameraProvider.picture = null;
+      cameraProvider.isPictureTaken = false;
+
+      categoriesProvider.pressedIndex = -1;
+      Navigator.popUntil(
+          context, (route) => route.settings.name == NamedRoutes.map);
+    }
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SaveSpotProvider()),
         ChangeNotifierProvider(create: (_) => TextFieldProvider()),
-        ChangeNotifierProvider(create: (_) => PlacesProvider()),
+        ChangeNotifierProvider(create: (_) => PredictionsProvider()),
         ChangeNotifierProvider(create: (_) => SelectColorsProvider()),
       ],
-      builder: (context, child) => WillPopScope(
+      builder: (context, _) => WillPopScope(
         onWillPop: () async {
           showDialog(
               context: context,
@@ -55,8 +70,7 @@ class _SaveSpotState extends State<SaveSpot> {
                     content: null,
                     cancelButtonVisibility: true,
                     function: () {
-                      Navigator.popUntil(context,
-                          (route) => route.settings.name == NamedRoutes.map);
+                      resetValues();
                     });
               });
           return false;
@@ -135,9 +149,8 @@ class _SaveSpotState extends State<SaveSpot> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 15),
-                                child: Consumer<PlacesProvider>(
-                                  builder: (_, placesProvider, child) =>
-                                      TextField(
+                                child: Consumer<PredictionsProvider>(
+                                  builder: (_, placesProvider, __) => TextField(
                                     controller: textFieldProvider
                                         .textEditingControllers[2],
                                     textInputAction: TextInputAction.search,
@@ -237,11 +250,7 @@ class _SaveSpotState extends State<SaveSpot> {
                                       title: 'Sucesso!',
                                       content: null,
                                       function: () {
-                                        Navigator.popUntil(
-                                            context,
-                                            (route) =>
-                                                route.settings.name ==
-                                                NamedRoutes.map);
+                                        resetValues();
                                       },
                                     ),
                                   );
