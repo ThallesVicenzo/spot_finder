@@ -23,7 +23,10 @@ import 'buttons/custom_text_field.dart';
 import 'categories/categories_builder.dart';
 
 class SaveSpot extends StatefulWidget {
-  const SaveSpot({super.key});
+  const SaveSpot({super.key, required this.lat, required this.long});
+
+  final double lat;
+  final double long;
 
   @override
   State<SaveSpot> createState() => _SaveSpotState();
@@ -196,7 +199,7 @@ class _SaveSpotState extends State<SaveSpot> {
                                           scrollController.animateTo(
                                             200.0,
                                             duration: const Duration(
-                                                milliseconds: 300),
+                                                milliseconds: 400),
                                             curve: Curves.linear,
                                           );
                                         });
@@ -205,7 +208,9 @@ class _SaveSpotState extends State<SaveSpot> {
                                   ),
                                 ),
                               ),
-                              const PredictionsList(),
+                              PredictionsList(
+                                textFieldProvider: textFieldProvider,
+                              ),
                               CustomTextField(
                                 title: 'Descrição',
                                 errorText: textFieldProvider.returnError,
@@ -259,17 +264,18 @@ class _SaveSpotState extends State<SaveSpot> {
                                 function: () {
                                   saveSpotProvider.validation(
                                     context: context,
-                                    saveSpotProvider: saveSpotProvider,
                                     textFieldProvider: textFieldProvider,
-                                    widget: WillPopScope(
-                                      onWillPop: () async => false,
-                                      child: CustomAlertDialog(
-                                        title: 'Sucesso!',
-                                        content: null,
-                                        function: () {
-                                          resetValues();
-                                        },
-                                      ),
+                                    widget: CustomAlertDialog(
+                                      title: 'Você tem certeza?',
+                                      content: null,
+                                      function: () {
+                                        saveSpotProvider.savePlace(
+                                          context,
+                                          widget.lat,
+                                          widget.long,
+                                        );
+                                        resetValues();
+                                      },
                                     ),
                                   );
                                 },
