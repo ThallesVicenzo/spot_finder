@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spot_finder/model/models/predictions.dart';
+import 'package:spot_finder/view-model/providers/new_spot_providers/text_field_provider.dart';
 import 'package:spot_finder/view-model/repository/places_repository.dart';
 
 class PredictionsProvider with ChangeNotifier {
@@ -18,6 +19,12 @@ class PredictionsProvider with ChangeNotifier {
 
   bool returnVisibility() {
     return list!.isEmpty ? _visibility : !_visibility;
+  }
+
+  void changeTextFieldValue(TextFieldProvider textFieldProvider, index) {
+    textFieldProvider.textEditingControllers[2].text =
+        list![index].description!;
+    notifyListeners();
   }
 
   void onClickVisibility() {
