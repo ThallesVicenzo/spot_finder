@@ -1,55 +1,45 @@
-import 'package:flutter/material.dart';
-
 import 'comment.dart';
 
-class TouristSpot {
-  const TouristSpot({
+class TouristSpotModel {
+  const TouristSpotModel({
     required this.title,
     required this.location,
-    required this.owner,
-    required this.id,
-    this.description,
+    required this.description,
+    required this.category,
+    required this.mainPicture,
+    required this.pinColor,
     this.comments,
-    this.category,
-    this.pinColor,
     this.rating,
-    this.mainPicture,
     this.isFavorite,
   });
 
   final String title;
   final String location;
-  final String owner;
   final String? mainPicture;
   final String? category;
   final String? description;
   final List<Comment>? comments;
-  final String id;
-  final Color? pinColor;
+  final String? pinColor;
   final double? rating;
   final bool? isFavorite;
 
-  TouristSpot copyWith({
+  TouristSpotModel copyWith({
     String? title,
     String? location,
     String? mainPicture,
-    String? owner,
     String? category,
     String? description,
-    String? id,
     List<Comment>? comments,
-    Color? pinColor,
+    String? pinColor,
     double? rating,
     bool? isFavorite,
   }) {
-    return TouristSpot(
+    return TouristSpotModel(
       title: title ?? this.title,
       location: location ?? this.location,
-      owner: owner ?? this.owner,
       mainPicture: mainPicture ?? this.mainPicture,
       description: description ?? this.description,
       comments: comments ?? this.comments,
-      id: id ?? this.id,
       category: category ?? this.category,
       pinColor: pinColor ?? this.pinColor,
       rating: rating ?? this.rating,
@@ -57,7 +47,7 @@ class TouristSpot {
     );
   }
 
-  factory TouristSpot.fromJson(Map<String, dynamic> json) {
+  factory TouristSpotModel.fromJson(Map<String, dynamic> json) {
     List<Comment> comments = [];
 
     if (json['comments'] != null) {
@@ -65,12 +55,10 @@ class TouristSpot {
       list.map((e) => comments.add(Comment.fromJson(e)));
     }
 
-    return TouristSpot(
+    return TouristSpotModel(
       title: json['title'],
       location: json['location'],
-      owner: json['owner'],
       description: json['description'],
-      id: json['id'],
       comments: comments,
       category: json['category'],
       pinColor: json['pinColor'],
@@ -84,8 +72,6 @@ class TouristSpot {
         'title': title,
         'location': location,
         'category': category,
-        'owner': owner,
-        'id': id,
         'comments': comments,
         'description': description,
         'pinColor': pinColor,
@@ -93,18 +79,4 @@ class TouristSpot {
         'mainPicture': mainPicture,
         'isFavorite': isFavorite,
       };
-
-  List<dynamic> get props => [
-        title,
-        location,
-        mainPicture,
-        category,
-        owner,
-        description,
-        comments,
-        id,
-        pinColor,
-        rating,
-        isFavorite,
-      ];
 }
