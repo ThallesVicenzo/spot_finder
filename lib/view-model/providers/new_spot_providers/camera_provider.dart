@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../view/camera/camera_screen.dart';
 
 class CameraProvider with ChangeNotifier {
-  late CameraController? cameraController;
+  CameraController? cameraController;
 
   bool isFlashButtonClicked = false;
   bool isPictureTaken = false;
