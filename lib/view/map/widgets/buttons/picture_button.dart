@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:spot_finder/shared/constants.dart';
 
 import '../../../../view-model/providers/new_spot_providers/camera_provider.dart';
 
@@ -15,7 +16,7 @@ class PictureButton extends StatelessWidget {
 
     return Material(
       child: Consumer<CameraProvider>(
-        builder: (context, cameraProvider, child) => InkWell(
+        builder: (_, cameraProvider, __) => InkWell(
           onTap: () {
             CameraProvider().goToPictureScreen(context);
           },
@@ -28,7 +29,8 @@ class PictureButton extends StatelessWidget {
                       children: [
                         Positioned.fill(
                           child: Image(
-                            image: cameraProvider.picture!,
+                            image: cameraProvider.picture ??
+                                const AssetImage(kLoadingImage),
                             fit: BoxFit.cover,
                           ),
                         ),
