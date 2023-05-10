@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spot_finder/view-model/providers/new_spot_providers/show_picture_provider.dart';
 
 import '../../../view/camera/camera_screen.dart';
 
@@ -9,7 +11,6 @@ class CameraProvider with ChangeNotifier {
   CameraController? cameraController;
 
   bool isFlashButtonClicked = false;
-  bool isPictureTaken = false;
 
   ImageProvider<Object>? picture;
 
@@ -20,23 +21,21 @@ class CameraProvider with ChangeNotifier {
         MaterialPageRoute(builder: (_) => CameraScreen(cameras: cameras)));
   }
 
-  Future<void> initCamera(
-    CameraDescription cameraDescription,
-    bool mounted,
-  ) async {
+  Future<void> initCamera({
+    required CameraDescription cameraDescription,
+    required bool mounted,
+  }) async {
     cameraController =
         CameraController(cameraDescription, ResolutionPreset.high);
     try {
-      await cameraController!.initialize().then((_) {
-        return;
-      });
+      return cameraController!.initialize();
     } on CameraException catch (e) {
       debugPrint("camera error $e");
     }
     notifyListeners();
   }
 
-  Future takePicture(context) async {
+  Future takePicture(ShowPictureProvider showPictureProvider) async {
     if (!cameraController!.value.isInitialized) {
       return null;
     }
@@ -46,22 +45,23 @@ class CameraProvider with ChangeNotifier {
     try {
       await setFlash();
 
-      xFileToImage(await cameraController!.takePicture());
-
-      isPictureTaken = true;
+      _xFileToImage(await cameraController!.takePicture(), showPictureProvider);
 
       cameraController!.setFlashMode(FlashMode.off);
 
-      Navigator.pop(context);
+      showPictureProvider.isPictureTaken = true;
+      showPictureProvider.notifyListeners();
     } on CameraException catch (e) {
-      return debugPrint('$e');
+      throw Exception(e);
     }
     notifyListeners();
   }
 
-  Future<void> xFileToImage(XFile xFile) async {
+  Future<void> _xFileToImage(
+      XFile xFile, ShowPictureProvider showPictureProvider) async {
     final Uint8List bytes = await xFile.readAsBytes();
     picture = Image.memory(bytes).image;
+    showPictureProvider.picture = picture;
     notifyListeners();
   }
 
