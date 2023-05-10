@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spot_finder/view-model/repository/firebase_repository.dart';
 
 class TextFieldProvider with ChangeNotifier {
   final textEditingControllers = [
@@ -8,10 +9,11 @@ class TextFieldProvider with ChangeNotifier {
     TextEditingController(),
   ];
   String? returnError;
+  String? errorForUpdateCategory;
 
   void clearControllers() {
     for (int i = 0; i < textEditingControllers.length; i++) {
-      textEditingControllers[i].clear();
+      textEditingControllers[i].text = '';
     }
   }
 
@@ -35,6 +37,27 @@ class TextFieldProvider with ChangeNotifier {
     return null;
   }
 
+  Future<String?> returnErrorForUpdateCategory() async {
+    String text = textEditingControllers[1].value.text;
+    final result =
+        await FirebaseRepository.validateNewCategory(text.toUpperCase());
+
+    if (result.exists) {
+      return 'Essa categoria já existe!';
+    }
+    if (text.isEmpty) {
+      return 'Não pode ser vazio!';
+    }
+    if (text.length <= 2) {
+      return 'Não pode ter menos que 3 caracteres.';
+    }
+    if (textEditingControllers[1].text.length > 10) {
+      return 'Uma categoria não pode ter mais que 9 caracteres.';
+    }
+
+    return null;
+  }
+
   void updateFieldValue(String value, int index) {
     textEditingControllers[index].text = value;
     notifyListeners();
@@ -42,6 +65,11 @@ class TextFieldProvider with ChangeNotifier {
 
   void updateErrorText(String? text) {
     returnError = text;
+    notifyListeners();
+  }
+
+  void updateReturnErrorForUpdateCategory(String? text) {
+    errorForUpdateCategory = text;
     notifyListeners();
   }
 }
