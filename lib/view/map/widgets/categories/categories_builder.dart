@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:spot_finder/view/map/widgets/buttons/container_button.dart';
 import 'package:spot_finder/view/map/widgets/buttons/custom_alert_dialog.dart';
@@ -40,7 +41,7 @@ class _CategoriesBuilderState extends State<CategoriesBuilder> {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     mainAxisSpacing: 20,
-                    crossAxisSpacing: 10,
+                    crossAxisSpacing: 5,
                     childAspectRatio: 2 / 1),
                 itemBuilder: (context, index) {
                   return CategoriesList(
@@ -60,17 +61,22 @@ class _CategoriesBuilderState extends State<CategoriesBuilder> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return CustomAlertDialog(
-                          title: 'Escreva uma nova categoria.',
-                          content: CustomTextField(
-                            title: 'Nova categoria.',
-                            errorText: widget.textFieldProvider.returnError,
-                            controller: widget
-                                .textFieldProvider.textEditingControllers[1],
-                          ),
-                          function: () {
-                            Navigator.pop(context);
-                          });
+                      return Consumer<TextFieldProvider>(
+                        builder: (_, textFieldProvider, __) =>
+                            CustomAlertDialog(
+                                title: 'Escreva uma nova categoria.',
+                                content: CustomTextField(
+                                  title: 'Nova categoria.',
+                                  errorText:
+                                      textFieldProvider.errorForUpdateCategory,
+                                  controller: textFieldProvider
+                                      .textEditingControllers[1],
+                                ),
+                                function: () {
+                                  widget.categoriesProvider.updateCategories(
+                                      textFieldProvider, context);
+                                }),
+                      );
                     });
               }),
         ],
