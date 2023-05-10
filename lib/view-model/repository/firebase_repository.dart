@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:spot_finder/model/models/spots.dart';
 
 import '../../model/models/categories.dart';
@@ -73,10 +74,8 @@ class FirebaseRepository {
     }
   }
 
-  static Future<String>? validateNewCategory(String category) async {
-    return FirebaseService.getCollectionsSnapshot('Categories')
-        .where(category, isEqualTo: category)
-        .get()
-        .toString();
+  static Future<DocumentSnapshot<Map<String, dynamic>>> validateNewCategory(
+      String doc) {
+    return FirebaseService.getDocumentReference('Categories', doc).get();
   }
 }
