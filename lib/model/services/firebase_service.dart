@@ -8,6 +8,11 @@ class FirebaseService {
     return _instance.collection(collection);
   }
 
+  static DocumentReference<Map<String, dynamic>> getDocumentReference(
+      String collection, String doc) {
+    return FirebaseService.getCollectionsSnapshot('Categories').doc(doc);
+  }
+
   static Future<void> saveSpot(
     String collection,
     String docName,
@@ -21,7 +26,7 @@ class FirebaseService {
     Map<String, dynamic> data,
   ) async {
     await getCollectionsSnapshot('Categories')
-        .doc(docName.toLowerCase())
+        .doc(docName.toUpperCase())
         .set(data);
   }
 }
