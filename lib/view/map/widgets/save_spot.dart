@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
-import 'package:spot_finder/shared/debounce.dart';
-
-import 'package:spot_finder/view/map/widgets/predictions_list.dart';
 
 import '../../../shared/constants.dart';
-import '../../../view-model/providers/new_spot_providers/camera_provider.dart';
+import '../../../shared/debounce.dart';
+
+import '../../../view-model/providers/new_spot_providers/show_picture_provider.dart';
 import '../../../view-model/providers/new_spot_providers/categories_provider.dart';
 import '../../../view-model/providers/new_spot_providers/predictions_provider.dart';
 import '../../../view-model/providers/new_spot_providers/save_spot_provider.dart';
@@ -14,9 +13,9 @@ import '../../../view-model/providers/new_spot_providers/select_colors_provider.
 import '../../../view-model/providers/new_spot_providers/text_field_provider.dart';
 
 import '../../../view-model/routes/named_routes.dart';
-
 import '../../../view/map/widgets/buttons/custom_alert_dialog.dart';
 import '../../../view/map/widgets/buttons/picture_button.dart';
+import '../../../view/map/widgets/predictions_list.dart';
 
 import 'buttons/container_button.dart';
 import 'buttons/custom_text_field.dart';
@@ -44,15 +43,15 @@ class _SaveSpotState extends State<SaveSpot> {
 
   @override
   Widget build(BuildContext _) {
-    final cameraProvider = Provider.of<CameraProvider>(context);
+    final theme = Theme.of(context);
+    final pictureProvider = Provider.of<ShowPictureProvider>(context);
     final textFieldProvider = Provider.of<TextFieldProvider>(context);
 
     final categoriesProvider = Provider.of<CategoriesProvider>(context);
-    final theme = Theme.of(context);
 
     void resetValues() {
-      cameraProvider.picture = null;
-      cameraProvider.isPictureTaken = false;
+      pictureProvider.picture = null;
+      pictureProvider.isPictureTaken = false;
 
       textFieldProvider.clearControllers();
 
