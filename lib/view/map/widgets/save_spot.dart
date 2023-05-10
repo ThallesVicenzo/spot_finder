@@ -35,18 +35,18 @@ class SaveSpot extends StatefulWidget {
 class _SaveSpotState extends State<SaveSpot> {
   final debounce = Debounce();
   final scrollController = ScrollController();
-  final cameraProvider = CameraProvider();
 
   @override
   void dispose() {
     scrollController.dispose();
-    cameraProvider.cameraController!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext _) {
     final cameraProvider = Provider.of<CameraProvider>(context);
+    final textFieldProvider = Provider.of<TextFieldProvider>(context);
+
     final categoriesProvider = Provider.of<CategoriesProvider>(context);
     final theme = Theme.of(context);
 
@@ -54,7 +54,10 @@ class _SaveSpotState extends State<SaveSpot> {
       cameraProvider.picture = null;
       cameraProvider.isPictureTaken = false;
 
+      textFieldProvider.clearControllers();
+
       categoriesProvider.pressedIndex = -1;
+
       Navigator.popUntil(
           context, (route) => route.settings.name == NamedRoutes.map);
     }
@@ -62,7 +65,6 @@ class _SaveSpotState extends State<SaveSpot> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SaveSpotProvider()),
-        ChangeNotifierProvider(create: (_) => TextFieldProvider()),
         ChangeNotifierProvider(create: (_) => PredictionsProvider()),
         ChangeNotifierProvider(create: (_) => SelectColorsProvider()),
       ],

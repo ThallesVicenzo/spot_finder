@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:spot_finder/view-model/providers/new_spot_providers/text_field_provider.dart';
 
 import 'shared/theme.dart';
 
@@ -21,6 +22,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => LocationProvider()),
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
         ChangeNotifierProvider(create: (_) => CameraProvider()),
+        ChangeNotifierProvider(create: (_) => TextFieldProvider())
       ],
       child: const SpotFinder(),
     ),
