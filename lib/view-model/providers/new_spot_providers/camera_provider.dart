@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:spot_finder/view-model/providers/new_spot_providers/show_picture_provider.dart';
 
 import '../../../view/camera/camera_screen.dart';
@@ -11,8 +10,6 @@ class CameraProvider with ChangeNotifier {
   CameraController? cameraController;
 
   bool isFlashButtonClicked = false;
-
-  ImageProvider<Object>? picture;
 
   Future<void> goToPictureScreen(context) async {
     final cameras = await availableCameras();
@@ -43,33 +40,31 @@ class CameraProvider with ChangeNotifier {
       return null;
     }
     try {
+      showPictureProvider.isPictureTaken = true;
+
       await setFlash();
 
-      _xFileToImage(await cameraController!.takePicture(), showPictureProvider);
-
-      cameraController!.setFlashMode(FlashMode.off);
-
-      showPictureProvider.isPictureTaken = true;
-      showPictureProvider.notifyListeners();
+      await _xFileToImage(
+          await cameraController!.takePicture(), showPictureProvider);
     } on CameraException catch (e) {
       throw Exception(e);
     }
-    notifyListeners();
+    showPictureProvider.notifyListeners();
   }
 
   Future<void> _xFileToImage(
       XFile xFile, ShowPictureProvider showPictureProvider) async {
     final Uint8List bytes = await xFile.readAsBytes();
-    picture = Image.memory(bytes).image;
-    showPictureProvider.picture = picture;
-    notifyListeners();
+    showPictureProvider.picture = Image.memory(bytes).image;
   }
 
   Future<void> setFlash() async {
-    if (!isFlashButtonClicked) {
-      await cameraController!.setFlashMode(FlashMode.off);
-    } else {
+    if (isFlashButtonClicked) {
       await cameraController!.setFlashMode(FlashMode.torch);
+      print('com flash');
+    } else {
+      print('sem flash');
+      await cameraController!.setFlashMode(FlashMode.off);
     }
   }
 
