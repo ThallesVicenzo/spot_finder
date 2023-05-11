@@ -12,6 +12,9 @@ class TextFieldProvider with ChangeNotifier {
   String? errorForUpdateCategory;
 
   void clearControllers() {
+    returnError = null;
+    errorForUpdateCategory = null;
+
     for (int i = 0; i < textEditingControllers.length; i++) {
       textEditingControllers[i].text = '';
     }
@@ -44,9 +47,6 @@ class TextFieldProvider with ChangeNotifier {
 
     if (result.exists) {
       return 'Essa categoria já existe!';
-    }
-    if (text.isEmpty) {
-      return 'Não pode ser vazio!';
     }
     if (text.length <= 2) {
       return 'Não pode ter menos que 3 caracteres.';
