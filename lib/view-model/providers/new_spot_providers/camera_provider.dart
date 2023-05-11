@@ -61,9 +61,7 @@ class CameraProvider with ChangeNotifier {
   Future<void> setFlash() async {
     if (isFlashButtonClicked) {
       await cameraController!.setFlashMode(FlashMode.torch);
-      print('com flash');
     } else {
-      print('sem flash');
       await cameraController!.setFlashMode(FlashMode.off);
     }
   }
