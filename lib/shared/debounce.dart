@@ -6,7 +6,7 @@ class Debounce {
   void handle(Function function) {
     _timer?.cancel();
 
-    _timer = Timer(const Duration(milliseconds: 500), () {
+    _timer = Timer(const Duration(milliseconds: 200), () {
       function.call();
     });
   }
